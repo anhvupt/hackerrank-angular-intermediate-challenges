@@ -1,0 +1,30 @@
+<div class="weather-data layout-column align-items-center mt-50">
+  <section class="layout-row align-items-center justify-content-center">
+      <input (model)="cityName" type="text" class="large ml-30" placeholder="Dallas" data-test-id="app-input"/>
+      <button (click)="searched()" class="" data-test-id="submit-button">Search</button>
+  </section>
+
+  <section *ngIf="cityResponse" class="mt-20 layout-row align-items-center justify-content-center">
+    <div class="card outlined">
+        <div *ngIf="cityResponse?.data?.length; else noResultTpl" data-test-id="weather-details" class="card-text pt-10 layout-row justify-content-between">
+              <div class="mt-20 outlined">
+              <i *ngIf="!isCold(cityResponse.data[0].weather)" data-test-id="icon-sunny" class="material-icons">wb_sunny</i>
+              <i *ngIf="isCold(cityResponse.data[0].weather)" data-test-id="icon-cold" class="material-icons">ac_unit</i>
+              <span data-test-id="result-temperature" class="temperature">{{cityResponse.data[0].weather}}</span>
+            </div>
+            <div class="mr-15 mb-15">
+              <div data-test-id="result-wind" class="mt-20">
+                {{cityResponse.data[0].status[0]}}
+              </div>
+              <div data-test-id="result-humidity" class="mt-20">
+{{cityResponse.data[0].status[1]}}
+              </div> 
+            </div>
+        </div>
+        <ng-template #noResultTpl>
+                  <div *ngIf="!cityResponse?.data?.length" data-test-id="no-result" class="layout-row justify-content-center align-items-center card-text" >No Results Found</div>
+
+        </ng-template>
+    </div>
+  </section>
+</div>
